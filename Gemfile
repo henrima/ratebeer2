@@ -8,6 +8,7 @@ gem 'rails', '4.1.5'
 # Use sqlite3 as the database for Active Record
 group :development, :test do
   gem 'sqlite3'
+
 end
 
 group :production do
@@ -47,8 +48,10 @@ gem 'rack-mini-profiler'
 gem 'omniauth-github'
 
 #sorcery
-gem 'sorcery'
+#gem 'sorcery'
 
+#psych 
+#gem 'psych'
 
 group :development, :test do
   gem "better_errors"
