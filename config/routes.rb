@@ -16,10 +16,13 @@ Rails.application.routes.draw do
   resource :session, only: [:new, :create, :delete]
 
   resources :beers
+  get 'beerlist', to:'beers#list'
+  get 'ngbeerlist', to:'beers#nglist'
 
   resources :breweries do
     post 'toggle_activity', on: :member
   end
+  get 'brewerylist', to:'breweries#list'
 
   resources :ratings, only: [:index, :new, :create, :destroy]
 
@@ -27,6 +30,10 @@ Rails.application.routes.draw do
   post 'places', to:'places#search'
 
   root 'breweries#index'
+
+  #github-auth
+  get 'auth/:provider/callback', to: 'sessions#create_oauth'
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

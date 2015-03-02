@@ -22,6 +22,7 @@ class ApplicationController < ActionController::Base
   end
 
   def ensure_that_admin
-    redirect_to :back, notice:'operation only allowed for admin' unless current_user.admin?
+    redirect_to :back, notice:'operation only allowed for admin' unless is_admin?
   end
+
 end

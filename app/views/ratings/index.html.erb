@@ -1,5 +1,7 @@
 <h2>Rating statistics</h2>
 
+<% cache 'ratingslist', skip_digest: true do %>
+
 <div class="row">
   <div class="col-xs-3 col-sm-3">
     <%= render 'list', objects: @beers, title:"beers" %>
@@ -29,14 +31,16 @@
     <% @users.each do |user| %>
       <tr>
         <td><%= link_to user.username, user %></td>
-        <td><%= link_to user.favorite_beer, user.favorite_beer %>
+        <td><%= link_to user.favorite_beer, user.favorite_beer %></td>
         <td><%= link_to user.favorite_brewery.name, user.favorite_brewery %></td>
-        <td><%= link_to user.favorite_style, user.favorite_style %>
-        <td><%= user.ratings.count %>
+        <td><%= link_to user.favorite_style, user.favorite_style %></td>
+        <td><%= user.ratings.count %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
+
+
 
 <h4>Recent ratings</h4>
 
@@ -45,5 +49,7 @@
     <li> <%= rating %> <%= link_to rating.user.username, rating.user %> </li>
   <% end %>
 </ul>
+
+<% end %>
 
 Total of <%= @ratings.count %> ratings given

@@ -1,5 +1,5 @@
 class Rating < ActiveRecord::Base
-  belongs_to :beer
+  belongs_to :beer, touch: true
   belongs_to :user
 
   validates :score, numericality: { greater_than_or_equal_to: 1,
@@ -11,4 +11,7 @@ class Rating < ActiveRecord::Base
   def to_s
     "#{beer.name} #{score}"
   end
+
+
+  
 end

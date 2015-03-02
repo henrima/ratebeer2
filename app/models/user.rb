@@ -1,4 +1,5 @@
 class User < ActiveRecord::Base
+  authenticates_with_sorcery!
   include RatingAverage
 
   has_secure_password
@@ -22,7 +23,7 @@ class User < ActiveRecord::Base
 
   def favorite_beer
     return nil if ratings.empty?
-    ratings.order(score: :desc).limit(1).first.beer
+    ratings.sort_by{ |r| r.score }.last.beer
   end
 
   def favorite(category)

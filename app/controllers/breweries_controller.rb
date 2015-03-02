@@ -2,12 +2,16 @@ class BreweriesController < ApplicationController
   before_action :set_brewery, only: [:show, :edit, :update, :destroy]
   before_action :ensure_that_signed_in, except: [:index, :show]
   before_action :ensure_that_admin, only: [:destroy]
+  before_action :breweries_ordered, only: [:index]
+  before_action :skip_if_cached, only:[:index]
+  before_action :expire_fragments, only:[:create, :update, :destroy]
 
   # GET /breweries
   # GET /breweries.json
   def index
-    @active_breweries = Brewery.active
-    @retired_breweries = Brewery.retired
+    #@breweries = Brewery.all   
+    @breweries = Brewery.includes(:name, :year).all     
+
   end
 
   # GET /breweries/1
@@ -84,4 +88,41 @@ class BreweriesController < ApplicationController
     def brewery_params
       params.require(:brewery).permit(:name, :year, :active)
     end
+
+    def breweries_ordered
+      @active_breweries = Brewery.where(active:true)
+      @retired_breweries = Brewery.where(active:false)
+
+      order = params[:order] || 'name'
+
+      @active_breweries = case order
+        when 'name' then @active_breweries.sort_by{ |b| b.name }
+        when 'year' then @active_breweries.sort_by{ |b| b.year }
+      end
+
+      @retired_breweries = case order
+        when 'name' then @retired_breweries.sort_by{ |b| b.name }
+        when 'year' then @retired_breweries.sort_by{ |b| b.year }
+      end      
+
+
+      if session[:last_brewery_order] == order and not session[:breweries_were_reversed]
+        @active_breweries = @active_breweries.reverse
+        @retired_breweries = @retired_breweries.reverse
+        session[:breweries_were_reversed] = true
+      else
+        session[:breweries_were_reversed] = false
+      end
+        session[:last_brewery_order] = params[:order]
+      end
+
+    def expire_fragments
+      ["brewerylist-name", "brewerylist-year"].each{ |f| expire_fragment(f) }
+    end
+
+    def skip_if_cached
+      @order = params[:order] || 'name'
+    
+      return render :index if fragment_exist?( "brewerylist-#{@order}" )
+    end    
 end

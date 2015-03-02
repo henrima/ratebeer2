@@ -3,6 +3,8 @@ source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.1.5'
+
+
 # Use sqlite3 as the database for Active Record
 group :development, :test do
   gem 'sqlite3'
@@ -23,12 +25,30 @@ gem 'coffee-rails', '~> 4.0.0'
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
+
+#jquery-turbolinks
+gem 'jquery-turbolinks'
+
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 gem 'turbolinks'
+
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.0'
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc', '~> 0.4.0',          group: :doc
+
+#docile
+gem 'docile', '~> 1.1.5'
+
+#miniprofiler
+gem 'rack-mini-profiler'
+
+#omniauth
+gem 'omniauth-github'
+
+#sorcery
+gem 'sorcery'
+
 
 group :development, :test do
   gem "better_errors"
@@ -40,7 +60,7 @@ group :development, :test do
   gem 'web-console', '~> 2.0'
 
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
-  gem 'spring'
+  gem 'spring'  
 end
 
 group :development, :test do
@@ -55,11 +75,15 @@ group :test do
   gem 'launchy'
   gem 'simplecov', require: false
   gem 'webmock'
+  gem 'selenium-webdriver'  
+  gem 'database_cleaner'
 end
 
 # Use ActiveModel has_secure_password
 gem 'bcrypt', '~> 3.1.7'
+
 gem 'httparty'
+
 
 gem 'bootstrap-sass'
 group :development do

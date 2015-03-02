@@ -1,17 +1,22 @@
-<h1>Listing users</h1>
+<h1>Users</h1>
 
 <table class="table table-hover">
   <thead>
     <tr>
       <th>Username</th>
+      <th> rated beers </th>
+      <th> total ratings </th>
+      <th> fav beer </th>
       <th></th>
     </tr>
   </thead>
-
   <tbody>
     <% @users.each do |user| %>
       <tr>
         <td><%= link_to user.username, user %></td>
+        <td><%= user.beers.size %></td>
+        <td><%= user.ratings.size %></td>
+        <td><%= user.favorite_beer %></td>
         <td>
           <% if is_admin? and user.is_frozen? %>
             <span class="label label-info">account frozen</span>
@@ -21,4 +26,3 @@
     <% end %>
   </tbody>
 </table>
-

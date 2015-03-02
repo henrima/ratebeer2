@@ -1,11 +1,12 @@
 class RatingsController < ApplicationController
   def index
-    @breweries = Brewery.top(3)
-    @beers = Beer.top(3)
-    @styles = Style.top(3)
-    @users = User.most_active(5)
-
-    @ratings = Rating.recent
+        #käynnistän config/boot.rb :ssä uuden threadin joka 
+        #eventual consistency-mallin mukaisesti pitää huolta cachen "ajantasaisuudesta"
+        @breweries = Rails.cache.read "brewery top 3"
+        @beers = Rails.cache.read "beer top 3"
+        @styles = Rails.cache.read "style top 3"
+        @users = Rails.cache.read "user most active 3"
+        @ratings = Rails.cache.read "all ratings"
   end
 
   def new
@@ -32,4 +33,8 @@ class RatingsController < ApplicationController
     rating.delete if current_user == rating.user
     redirect_to :back
   end
-end
+
+private
+
+
+end  
