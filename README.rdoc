@@ -1,4 +1,4 @@
 
-Herokuappi: http://cryptic-headland-6363.herokuapp.com/
+Herokuappi: http://ratebeer2.herokuapp.com/
 
 
