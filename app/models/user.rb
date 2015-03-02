@@ -1,5 +1,4 @@
 class User < ActiveRecord::Base
-  authenticates_with_sorcery!
   include RatingAverage
 
   has_secure_password
