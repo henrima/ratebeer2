@@ -12,4 +12,4 @@ require 'bundler/setup' if File.exist?(ENV['BUNDLE_GEMFILE'])
 #    	Rails.cache.write("user most active 3", User.most_active(3))
 #    	Rails.cache.write("all ratings", Rating.all)
 #  	end
-end
+#end
